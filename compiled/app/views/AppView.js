@@ -31,19 +31,31 @@
       var _this = this;
 
       this.render();
-      return this.model.get('dealerHand').on('stand', function() {
+      this.model.get('dealerHand').on('stand', function() {
         _this.model.get('dealerHand').models[0].flip();
         while (_this.model.get('dealerHand').scores()[0] < 17) {
           _this.model.get('dealerHand').hit();
         }
         if (_this.model.get('dealerHand').scores()[0] > 21) {
-          _this.model.get('dealerHand').bust();
+          return _this.model.get('dealerHand').bust();
         } else if (_this.model.get('dealerHand').scores()[0] < _this.model.get('playerHand').scores()[0]) {
-          _this.model.get('dealerHand').bust();
+          return _this.model.get('dealerHand').bust();
         } else {
-          _this.model.get('playerHand').bust();
+          return _this.model.get('playerHand').bust();
         }
-        return _this.render();
+      });
+      this.model.get('playerHand').on('hit', function() {
+        if (_this.model.get('playerHand').scores()[0] > 21) {
+          return _this.model.get('playerHand').bust();
+        }
+      });
+      this.model.get('playerHand').on('bust', function() {
+        console.log("BUST HAS BEEN HEARD!");
+        _this.model.reDeal();
+        return console.log(_this);
+      });
+      return this.model.get('dealerHand').on('bust', function() {
+        return _this.model.reDeal();
       });
     };
 

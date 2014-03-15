@@ -26,10 +26,12 @@
     Deck.prototype.dealPlayer = function() {
       var hand;
 
+      console.log("player dealt");
       return hand = new Hand([this.pop(), this.pop()], this);
     };
 
     Deck.prototype.dealDealer = function() {
+      console.log("dealer dealt");
       return new Hand([this.pop().flip(), this.pop()], this, true);
     };
 

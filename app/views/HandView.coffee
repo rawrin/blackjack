@@ -8,6 +8,10 @@ class window.HandView extends Backbone.View
   initialize: ->
     @collection.on 'add remove change', =>
       @render()
+    @collection.on 'reDeal', => #move to app view
+      console.log "redeal heard."
+      @render()
+
       # if @collection.scores()[0] > 21 then @collection.bust()
     # @collection.on 'change', =>
     #   console.log @collection

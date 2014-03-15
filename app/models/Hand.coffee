@@ -4,7 +4,9 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
 
-  hit: -> @add(@deck.pop()).last()
+  hit: ->
+    @add(@deck.pop()).last()
+    @trigger 'hit', @
 
   stand: ->
     # @models[0].flip()
@@ -29,3 +31,17 @@ class window.Hand extends Backbone.Collection
       alert "you win!!!!"
     if !@isDealer
       alert "you lose, try again!!!!"
+    console.log "bust triggered"
+    @trigger 'bust', @
+
+  clearCards: ->
+    # console.log @
+    # @models = []
+    # if @isDealer
+    #   (@deck.pop().flip)
+    #   @hit()
+    # if !@isDealer
+    #   @hit()
+    #   @hit()
+    # console.log @
+    @trigger 'clearCards', @

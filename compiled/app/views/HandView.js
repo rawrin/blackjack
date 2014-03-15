@@ -22,6 +22,10 @@
       this.collection.on('add remove change', function() {
         return _this.render();
       });
+      this.collection.on('reDeal', function() {
+        console.log("redeal heard.");
+        return _this.render();
+      });
       return this.render();
     };
 

@@ -20,6 +20,15 @@
       return this.set('dealerHand', deck.dealDealer());
     };
 
+    App.prototype.reDeal = function() {
+      var deck;
+
+      deck = this.get('deck');
+      this.set('playerHand', deck.dealPlayer());
+      this.set('dealerHand', deck.dealDealer());
+      return this.trigger('reDeal', this);
+    };
+
     return App;
 
   })(Backbone.Model);

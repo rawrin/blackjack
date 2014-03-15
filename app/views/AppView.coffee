@@ -14,8 +14,6 @@ class window.AppView extends Backbone.View
     @render()
     @model.get('dealerHand').on 'stand', =>
       @model.get('dealerHand').models[0].flip()
-      # if @model.get('dealerHand').scores()[0] > 21
-      #   @model.get('dealerHand').bust()
       while @model.get('dealerHand').scores()[0] < 17
         @model.get('dealerHand').hit()
       if @model.get('dealerHand').scores()[0] > 21
@@ -25,7 +23,20 @@ class window.AppView extends Backbone.View
         @model.get('dealerHand').bust()
       else
         @model.get('playerHand').bust()
-      @render()
+    @model.get('playerHand').on 'hit', =>
+      if @model.get('playerHand').scores()[0] > 21
+        @model.get('playerHand').bust()
+    @model.get('playerHand').on 'bust', =>
+      console.log "BUST HAS BEEN HEARD!"
+      @model.reDeal()
+      console.log @
+      # @render()
+    @model.get('dealerHand').on 'bust', =>
+      @model.reDeal()
+      # @render()
+      # @model.get('playerHand').clearCards()
+      # @model.get('dealerHand').clearCards()
+
 
   render: ->
     @$el.children().detach()

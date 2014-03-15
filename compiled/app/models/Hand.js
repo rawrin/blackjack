@@ -20,7 +20,8 @@
     };
 
     Hand.prototype.hit = function() {
-      return this.add(this.deck.pop()).last();
+      this.add(this.deck.pop()).last();
+      return this.trigger('hit', this);
     };
 
     Hand.prototype.stand = function() {
@@ -48,8 +49,14 @@
         alert("you win!!!!");
       }
       if (!this.isDealer) {
-        return alert("you lose, try again!!!!");
+        alert("you lose, try again!!!!");
       }
+      console.log("bust triggered");
+      return this.trigger('bust', this);
+    };
+
+    Hand.prototype.clearCards = function() {
+      return this.trigger('clearCards', this);
     };
 
     return Hand;
