@@ -6,8 +6,11 @@ class window.Hand extends Backbone.Collection
 
   hit: -> @add(@deck.pop()).last()
 
-  stand: -> @models[0].flip()
-    @add(@deck.pop()).last()
+  stand: ->
+    # @models[0].flip()
+    # while @scores()[0] < 17
+    #   do @hit
+    @trigger 'stand', @
 
   scores: ->
     # The scores are an array of potential scores.
@@ -21,5 +24,8 @@ class window.Hand extends Backbone.Collection
     , 0
     if hasAce then [score, score + 10] else [score]
 
-  bust: -> alert "you lose"
-
+  bust: ->
+    if @isDealer
+      alert "you win!!!!"
+    if !@isDealer
+      alert "you lose, try again!!!!"

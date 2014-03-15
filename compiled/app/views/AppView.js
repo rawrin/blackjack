@@ -23,12 +23,28 @@
         return this.model.get('playerHand').hit();
       },
       "click .stand-button": function() {
-        return this.model.get('playerHand').stand();
+        return this.model.get('dealerHand').stand();
       }
     };
 
     AppView.prototype.initialize = function() {
-      return this.render();
+      var _this = this;
+
+      this.render();
+      return this.model.get('dealerHand').on('stand', function() {
+        _this.model.get('dealerHand').models[0].flip();
+        while (_this.model.get('dealerHand').scores()[0] < 17) {
+          _this.model.get('dealerHand').hit();
+        }
+        if (_this.model.get('dealerHand').scores()[0] > 21) {
+          _this.model.get('dealerHand').bust();
+        } else if (_this.model.get('dealerHand').scores()[0] < _this.model.get('playerHand').scores()[0]) {
+          _this.model.get('dealerHand').bust();
+        } else {
+          _this.model.get('playerHand').bust();
+        }
+        return _this.render();
+      });
     };
 
     AppView.prototype.render = function() {

@@ -19,17 +19,8 @@
     HandView.prototype.initialize = function() {
       var _this = this;
 
-      this.collection.on('add remove', function() {
-        _this.render();
-        if (_this.collection.scores()[0] > 21) {
-          return _this.collection.bust();
-        }
-      });
-      this.collection.on('change', function() {
-        _this.render();
-        if (_this.collection.scores()[0] > 21) {
-          return _this.collection.bust();
-        }
+      this.collection.on('add remove change', function() {
+        return _this.render();
       });
       return this.render();
     };
@@ -43,18 +34,6 @@
         }).$el;
       }));
       return this.$('.score').text(this.collection.scores()[0]);
-      /*
-      if !@collection.isDealer
-        playerScore = @collection.scores()[0]
-        if playerScore == 21 then alert "YOU ARE A WINNER."
-        if playerScore > 21 then alert "GO HOME AND DIE."
-      if @collection.isDealer
-        dealerScore = @collection.scores()[0]
-        if dealerScore == 21 or dealerScore > playerScore
-          alert "DEALER WINS, KILL YOURSELF."
-        else alert "YOU ARE WINNER!!!!!!!!"
-      */
-
     };
 
     return HandView;

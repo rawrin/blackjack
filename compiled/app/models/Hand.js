@@ -24,7 +24,7 @@
     };
 
     Hand.prototype.stand = function() {
-      return this.models[0].flip();
+      return this.trigger('stand', this);
     };
 
     Hand.prototype.scores = function() {
@@ -44,7 +44,12 @@
     };
 
     Hand.prototype.bust = function() {
-      return alert("you lose");
+      if (this.isDealer) {
+        alert("you win!!!!");
+      }
+      if (!this.isDealer) {
+        return alert("you lose, try again!!!!");
+      }
     };
 
     return Hand;
